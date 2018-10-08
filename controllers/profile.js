@@ -1,4 +1,5 @@
 var TodoModel=require('../models/todo');
+var UserModel=require('../models/user-model');
 var express = require('express');
 
 
@@ -24,9 +25,41 @@ var authCheck=(req,res,next)=>{
 var insertTask=(req,res)=>{
   //res.render('index',{title:"Tina's Task"})
   //res.json(req.body);
-  user:req.user;
-  let newTodo=new TodoModel({description:req.body.description});
+  var user=req.user;
+  console.log('Printing from here  User name:'+user.username+' main id '+user._id);
 
+  var taskname=req.body.description;
+///////////////////////////////////////
+
+  let id=user._id;
+  /*
+  UserModel.findById(id)
+    .exec()
+    .then((result)=>{
+       //result.done= !result.done;
+       result.tasks=newTodo;
+       result.tasks.push({taskname:taskname});
+       return result.save();
+
+    }).then((result)=>{
+        res.redirect('/');
+    });
+*/
+  
+   //console.log('Id Requested ',id);
+ ///////////////////////////////
+
+ UserModel.findById(id).then((result)=>{
+ // console.log(result);
+ // res.render('index',{title:"Tina's Task"})
+ result.tasks.push({taskname:taskname});
+ result.save();
+ res.redirect('/');
+}).catch((err)=>{
+console.log(err);
+res.redirect('/');  
+});
+/*
   newTodo.save().then((result)=>{
       console.log(result);
      // res.render('index',{title:"Tina's Task"})
@@ -35,6 +68,10 @@ var insertTask=(req,res)=>{
     console.log(err);
     res.redirect('/');  
   });
+*/
+
+
+
 
   };
 
