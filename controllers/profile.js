@@ -17,12 +17,32 @@ var authCheck=(req,res,next)=>{
  };
 
  var profilePage= (req, res)=> {
- 
+  
  res.render('profile',{user:req.user});
 };
 
+var insertTask=(req,res)=>{
+  //res.render('index',{title:"Tina's Task"})
+  //res.json(req.body);
+  user:req.user;
+  let newTodo=new TodoModel({description:req.body.description});
+
+  newTodo.save().then((result)=>{
+      console.log(result);
+     // res.render('index',{title:"Tina's Task"})
+     res.redirect('/');
+  }).catch((err)=>{
+    console.log(err);
+    res.redirect('/');  
+  });
+
+  };
+
+
+
  module.exports = {
   authCheck,
-  profilePage
+  profilePage,
+  insertTask
   };
 

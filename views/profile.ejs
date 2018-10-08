@@ -44,7 +44,7 @@
                         <img src= "<%= user.profileImgLink %>" class="rounded-circle" alt="Logo" style="width:70px; height: 70px;" >
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/">Home</a>
+                  <a class="dropdown-item" href="#AddNew">AddNewTask</a>
                   <a class="dropdown-item" href="#">Another action</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/auth/logout">Logout</a>
@@ -65,27 +65,43 @@
 
       <div class="jumbotron" id="AddNew">
 
-        <h1>Login Using</h1>
-        <h3 class="text-muted"> <%= user.profileImgLink %></h3>
+        <h3>Welcome <%= user.username %> control your tasks here</h3>
+       
         <p class="lead"></p>
         <p></p>
       <div class="row">
 
 
-          <div class="col-md-12 col-xs-12 col-sm-0 col-lg-12 ">
-            <div class="col-md-1 col-xs-2 col-sm-0 col-lg-2 "></div>
-            <div class="col-md-10 col-xs-8 col-sm-8=12 col-lg-8">
-           
-                 
-               
-                  <a href="/auth/google" class="btn btn-danger btn-lg btn-block" role="button">Google + </a>
-            </div>
-            <div class="col-md-1 col-xs-2 col-sm-0 col-lg-2"></div>
+          <div class="col-md-12 col-xs-12 col-sm-0 col-lg-12 ">             
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h1 class="card-title">Add Task</h1>
+                        <form action="/profile/todos" method="POST">
+                        
+                          <div class="form-group">
+                              <input type="text" name="description" class="form-control" placeholder="content">
+                          </div>
+                          
+                          <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  </div>
 
 
-        </div>
+          </div>
       </div>
 
+
+
+
+
+
+      
 
     </div> <!-- /container -->
 
