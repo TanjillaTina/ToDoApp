@@ -19,7 +19,27 @@ var authCheck=(req,res,next)=>{
 
  var profilePage= (req, res)=> {
   
- res.render('profile',{user:req.user});
+var user=req.user;
+var id=user._id;
+  UserModel.findById(id).then(function(results){
+            // console.log("Showing Todos \n ",results);
+
+            let todos=results.tasks.filter((todo)=>{
+                return !todo.done;
+              
+            });
+           // console.log('Printing All todos  '+todos);
+            
+            let Donetodos=results.tasks.filter((todo)=>{
+            return todo.done;
+            });
+            
+          res.render('profile',{user:user, todos:todos,Donetodos:Donetodos});
+ }
+);
+ 
+
+ ///res.render('profile',{user:user});
 };
 
 var insertTask=(req,res)=>{
@@ -32,22 +52,6 @@ var insertTask=(req,res)=>{
 ///////////////////////////////////////
 
   let id=user._id;
-  /*
-  UserModel.findById(id)
-    .exec()
-    .then((result)=>{
-       //result.done= !result.done;
-       result.tasks=newTodo;
-       result.tasks.push({taskname:taskname});
-       return result.save();
-
-    }).then((result)=>{
-        res.redirect('/');
-    });
-*/
-  
-   //console.log('Id Requested ',id);
- ///////////////////////////////
 
  UserModel.findById(id).then((result)=>{
  // console.log(result);
@@ -59,19 +63,6 @@ var insertTask=(req,res)=>{
 console.log(err);
 res.redirect('/');  
 });
-/*
-  newTodo.save().then((result)=>{
-      console.log(result);
-     // res.render('index',{title:"Tina's Task"})
-     res.redirect('/');
-  }).catch((err)=>{
-    console.log(err);
-    res.redirect('/');  
-  });
-*/
-
-
-
 
   };
 
