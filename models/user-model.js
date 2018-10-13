@@ -8,12 +8,14 @@ let todoSchema=new Schema({
 
 
 let userSchema=new Schema({
-    username:String,
+     username:String,
      googleId: String,
      profileImgLink:String,
      tasks:[todoSchema]
 
 });
+
+
 
 const User=mongoose.model('user',userSchema);
 module.exports=User;

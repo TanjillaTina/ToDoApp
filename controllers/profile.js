@@ -20,6 +20,7 @@ var authCheck=(req,res,next)=>{
  var profilePage= (req, res)=> {
   
 var user=req.user;
+
 var id=user._id;
   UserModel.findById(id).then(function(results){
             // console.log("Showing Todos \n ",results);
@@ -46,7 +47,7 @@ var insertTask=(req,res)=>{
   //res.render('index',{title:"Tina's Task"})
   //res.json(req.body);
   var user=req.user;
-  console.log('Printing from here  User name:'+user.username+' main id '+user._id);
+  //console.log('Printing from here  User name:'+user.username+' main id '+user._id);
 
   var taskname=req.body.description;
 ///////////////////////////////////////
@@ -54,23 +55,52 @@ var insertTask=(req,res)=>{
   let id=user._id;
 
  UserModel.findById(id).then((result)=>{
- // console.log(result);
- // res.render('index',{title:"Tina's Task"})
- result.tasks.push({taskname:taskname});
- result.save();
- res.redirect('/');
-}).catch((err)=>{
-console.log(err);
-res.redirect('/');  
+        // console.log(result);
+        // res.render('index',{title:"Tina's Task"})
+        result.tasks.push({taskname:taskname});
+        result.save();
+        res.redirect('/profile');
+        }).catch((err)=>{
+                console.log(err);
+                res.redirect('/profile');  
 });
 
   };
 
 
 
+
+
+  var changeTaskStatus=(req,res)=>{
+  
+  var user=req.user;
+ // console.log('printing from here '+user);
+  //console.log('Printing from here  User name:'+user.username+' main id '+user._id);
+  let user_id=user._id;
+  let task_id=req.body.taskId;
+
+ // console.log(task_id);
+
+UserModel.findById(user_id, function(err, usera) {
+  var subDoc = usera.tasks.id(task_id);
+  subDoc.set(subDoc.done= !subDoc.done);
+
+  // Using a promise rather than a callback
+  usera.save().then(function(savedPost) {
+    res.redirect('/');
+  }).catch(function(err) {
+    res.status(500).send(err);
+  });
+});
+
+
+
+    };
+
  module.exports = {
   authCheck,
   profilePage,
-  insertTask
+  insertTask,
+  changeTaskStatus
   };
 
