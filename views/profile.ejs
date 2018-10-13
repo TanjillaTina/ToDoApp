@@ -98,50 +98,53 @@
 
 
 
-      <div class="row">
+<div class="row">
 
 
-        <div class="col-md-12 col-xs-12 col-sm-0 col-lg-12 ">             
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <h1 class="card-title">Tasks To be Completed</h1>
-                      
-                      <div>
+  <div class="col-md-12 col-xs-12 col-sm-0 col-lg-12 ">             
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="card-title">Tasks To Be Completed </h1>
       
-       
-                    <div class="list-group">                    
-                        <% todos.forEach(function(todos) { %>
-                            <form action="/profile/todos/completed" method="POST">
+                  
+              <div class="list-group">                    
+                <% todos.forEach(function(todos) { %>
+                       <form action="" method="POST">
+                        <div class="alert alert-primary" role="alert">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h2> Task Title: <%= todos.taskname %> </h2>
                           
-                            <h3>Task Title: <%= todos.taskname %> <span class="badge badge-secondary">New</span></h3>
-                  
-                                <input type="hidden"  name="taskId" value=<%= todos.id %> >
-                                <input type="hidden"  name="task_name" value=<%= todos.name %> >
-                                <input type="hidden"  name="task_name" value=<%= todos.name %> >
-                               
-                              <h5 class="mb-1">Task Status: <%= todos.done %></h5>
-                              
-                            </a>
-                            <button type="submit" class="btn btn-secondary">Done</button>
-                          </form>
-                  
-                            <% }); %>
+
+                          <input type="hidden"  name="taskId" value=<%= todos.id %> >
+                          <input type="hidden"  name="task_name" value=<%= todos.name %> >
+                          <input type="hidden"  name="task_name" value=<%= todos.name %> >
+                          
+                          
                         </div>
-     
-          
-      
-        </div>
-                    </div>
+
+                        <button type="submit" class="btn btn-secondary" formaction="/todos/completed" >Delete This Task</button>
+                        <button type="submit" class="btn btn-info" formaction="/profile/todos/completed" >This Task is Done</button>
+                      </div>
+                      
+                        
+                    
+                      
+                    </form>
+            
+                      <% }); %>
                   </div>
-                </div>
+                
+              </div>
+            </div>
+            </div>
+          </div>
 
-                </div>
+          </div>
 
 
-        </div>
-    </div>
+  </div>
 
 
 
@@ -151,42 +154,46 @@
     
     <div class="row">
 
-
-      <div class="col-md-12 col-xs-12 col-sm-0 col-lg-12 ">             
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h1 class="card-title">Completed Tasks</h1>
-          
+        
+  <div class="col-md-12 col-xs-12 col-sm-0 col-lg-12 ">             
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title">Completed Tasks </h1>
+  
+              
+          <div class="list-group">                    
+            <%Donetodos.forEach(function(Donetodos) { %>
+                   <form action="" method="POST">
+                    <div class="alert alert-primary" role="alert">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h2> Task Title: <%= Donetodos.taskname %> </h2>
                       
-                  <div class="list-group">                    
-                      <% Donetodos.forEach(function(Donetodos) { %>
-                           <form action="" method="POST">
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                            <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1"> Task Title: <%= Donetodos.taskname %></h5>
-                              <input type="hidden"  name="taskId" value=<%= Donetodos.id %> >
-                              
-                              
-                            </div>
-                            <h5 class="mb-1">Task Status: <%= Donetodos.done %></h5>
-                            
-                          </a>
-                          <button type="submit" class="btn btn-secondary" formaction="/todos/completed" >Woops!! Not Done</button>
-                          <button type="submit" class="btn btn-danger" formaction="/todos/delete" >Delete This Task</button>
-                        </form>
-                
-                          <% }); %>
-                      </div>
-                    
+
+                      <input type="hidden"  name="taskId" value=<%= Donetodos.id %> >
+                      <input type="hidden"  name="task_name" value=<%= Donetodos.name %> >
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary" formaction="/todos/completed" >Delete This Task</button>
+                    <button type="submit" class="btn btn-danger" formaction="/profile/todos/completed" >Oopps!! Not Done</button>
                   </div>
-                </div>
-                </div>
+                  
+                    
+                
+                  
+                </form>
+        
+                  <% }); %>
               </div>
+            
+          </div>
+        </div>
+        </div>
+      </div>
 
-              </div>
-
+      </div>
+    
 
       </div>
   </div>

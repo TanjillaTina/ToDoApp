@@ -87,7 +87,7 @@ UserModel.findById(user_id, function(err, usera) {
 
   // Using a promise rather than a callback
   usera.save().then(function(savedPost) {
-    res.redirect('/');
+    res.redirect('/profile');
   }).catch(function(err) {
     res.status(500).send(err);
   });
