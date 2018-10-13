@@ -97,10 +97,38 @@ UserModel.findById(user_id, function(err, usera) {
 
     };
 
+
+
+var DeleteTask=(req,res)=>{
+
+ 
+  var user=req.user;
+ // console.log('printing from here '+user);
+  //console.log('Printing from here  User name:'+user.username+' main id '+user._id);
+  let user_id=user._id;
+  let task_id=req.body.taskId;
+
+ // console.log(task_id);
+
+UserModel.findById(user_id, function(err, usera) {
+  var subDoc = usera.tasks.id(task_id);
+  subDoc.remove();
+
+  // Using a promise rather than a callback
+  usera.save().then(function(savedPost) {
+    res.redirect('/profile');
+  }).catch(function(err) {
+    res.status(500).send(err);
+  });
+});
+
+};
+
  module.exports = {
   authCheck,
   profilePage,
   insertTask,
-  changeTaskStatus
+  changeTaskStatus,
+  DeleteTask
   };
 
